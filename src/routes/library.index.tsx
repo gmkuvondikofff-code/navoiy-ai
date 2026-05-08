@@ -3,7 +3,7 @@ import { books } from "@/data/books";
 import { useLang, useT } from "@/lib/i18n";
 import { BookOpen, Feather, Crown, GraduationCap, Sparkles, Moon, Mountain } from "lucide-react";
 
-export const Route = createFileRoute("/library")({
+export const Route = createFileRoute("/library/")({
   component: LibraryPage,
   head: () => ({
     meta: [

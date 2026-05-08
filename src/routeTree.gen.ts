@@ -13,8 +13,8 @@ import { Route as TutorRouteImport } from './routes/tutor'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as MultimediaRouteImport } from './routes/multimedia'
-import { Route as LibraryRouteImport } from './routes/library'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LibraryIndexRouteImport } from './routes/library.index'
 import { Route as LibraryBookIdRouteImport } from './routes/library.$bookId'
 import { Route as ApiPublicQuizRouteImport } from './routes/api/public/quiz'
 import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
@@ -39,14 +39,14 @@ const MultimediaRoute = MultimediaRouteImport.update({
   path: '/multimedia',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LibraryRoute = LibraryRouteImport.update({
-  id: '/library',
-  path: '/library',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryIndexRoute = LibraryIndexRouteImport.update({
+  id: '/library/',
+  path: '/library/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LibraryBookIdRoute = LibraryBookIdRouteImport.update({
@@ -67,35 +67,35 @@ const ApiPublicChatRoute = ApiPublicChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/library': typeof LibraryRouteWithChildren
   '/multimedia': typeof MultimediaRoute
   '/progress': typeof ProgressRoute
   '/quiz': typeof QuizRoute
   '/tutor': typeof TutorRoute
   '/library/$bookId': typeof LibraryBookIdRoute
+  '/library/': typeof LibraryIndexRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/quiz': typeof ApiPublicQuizRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/library': typeof LibraryRouteWithChildren
   '/multimedia': typeof MultimediaRoute
   '/progress': typeof ProgressRoute
   '/quiz': typeof QuizRoute
   '/tutor': typeof TutorRoute
   '/library/$bookId': typeof LibraryBookIdRoute
+  '/library': typeof LibraryIndexRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/quiz': typeof ApiPublicQuizRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/library': typeof LibraryRouteWithChildren
   '/multimedia': typeof MultimediaRoute
   '/progress': typeof ProgressRoute
   '/quiz': typeof QuizRoute
   '/tutor': typeof TutorRoute
   '/library/$bookId': typeof LibraryBookIdRoute
+  '/library/': typeof LibraryIndexRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/quiz': typeof ApiPublicQuizRoute
 }
@@ -103,45 +103,45 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/library'
     | '/multimedia'
     | '/progress'
     | '/quiz'
     | '/tutor'
     | '/library/$bookId'
+    | '/library/'
     | '/api/public/chat'
     | '/api/public/quiz'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/library'
     | '/multimedia'
     | '/progress'
     | '/quiz'
     | '/tutor'
     | '/library/$bookId'
+    | '/library'
     | '/api/public/chat'
     | '/api/public/quiz'
   id:
     | '__root__'
     | '/'
-    | '/library'
     | '/multimedia'
     | '/progress'
     | '/quiz'
     | '/tutor'
     | '/library/$bookId'
+    | '/library/'
     | '/api/public/chat'
     | '/api/public/quiz'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LibraryRoute: typeof LibraryRouteWithChildren
   MultimediaRoute: typeof MultimediaRoute
   ProgressRoute: typeof ProgressRoute
   QuizRoute: typeof QuizRoute
   TutorRoute: typeof TutorRoute
+  LibraryIndexRoute: typeof LibraryIndexRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicQuizRoute: typeof ApiPublicQuizRoute
 }
@@ -176,18 +176,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MultimediaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/library': {
-      id: '/library'
-      path: '/library'
-      fullPath: '/library'
-      preLoaderRoute: typeof LibraryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library/': {
+      id: '/library/'
+      path: '/library'
+      fullPath: '/library/'
+      preLoaderRoute: typeof LibraryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/library/$bookId': {
@@ -214,24 +214,13 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface LibraryRouteChildren {
-  LibraryBookIdRoute: typeof LibraryBookIdRoute
-}
-
-const LibraryRouteChildren: LibraryRouteChildren = {
-  LibraryBookIdRoute: LibraryBookIdRoute,
-}
-
-const LibraryRouteWithChildren =
-  LibraryRoute._addFileChildren(LibraryRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LibraryRoute: LibraryRouteWithChildren,
   MultimediaRoute: MultimediaRoute,
   ProgressRoute: ProgressRoute,
   QuizRoute: QuizRoute,
   TutorRoute: TutorRoute,
+  LibraryIndexRoute: LibraryIndexRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicQuizRoute: ApiPublicQuizRoute,
 }
