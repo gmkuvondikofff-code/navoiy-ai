@@ -9,38 +9,180 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TutorRouteImport } from './routes/tutor'
+import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as MultimediaRouteImport } from './routes/multimedia'
+import { Route as LibraryRouteImport } from './routes/library'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LibraryBookIdRouteImport } from './routes/library.$bookId'
+import { Route as ApiPublicQuizRouteImport } from './routes/api/public/quiz'
+import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 
+const TutorRoute = TutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MultimediaRoute = MultimediaRouteImport.update({
+  id: '/multimedia',
+  path: '/multimedia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LibraryBookIdRoute = LibraryBookIdRouteImport.update({
+  id: '/$bookId',
+  path: '/$bookId',
+  getParentRoute: () => LibraryRoute,
+} as any)
+const ApiPublicQuizRoute = ApiPublicQuizRouteImport.update({
+  id: '/api/public/quiz',
+  path: '/api/public/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicChatRoute = ApiPublicChatRouteImport.update({
+  id: '/api/public/chat',
+  path: '/api/public/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/library': typeof LibraryRouteWithChildren
+  '/multimedia': typeof MultimediaRoute
+  '/progress': typeof ProgressRoute
+  '/quiz': typeof QuizRoute
+  '/tutor': typeof TutorRoute
+  '/library/$bookId': typeof LibraryBookIdRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
+  '/api/public/quiz': typeof ApiPublicQuizRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/library': typeof LibraryRouteWithChildren
+  '/multimedia': typeof MultimediaRoute
+  '/progress': typeof ProgressRoute
+  '/quiz': typeof QuizRoute
+  '/tutor': typeof TutorRoute
+  '/library/$bookId': typeof LibraryBookIdRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
+  '/api/public/quiz': typeof ApiPublicQuizRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/library': typeof LibraryRouteWithChildren
+  '/multimedia': typeof MultimediaRoute
+  '/progress': typeof ProgressRoute
+  '/quiz': typeof QuizRoute
+  '/tutor': typeof TutorRoute
+  '/library/$bookId': typeof LibraryBookIdRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
+  '/api/public/quiz': typeof ApiPublicQuizRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/library'
+    | '/multimedia'
+    | '/progress'
+    | '/quiz'
+    | '/tutor'
+    | '/library/$bookId'
+    | '/api/public/chat'
+    | '/api/public/quiz'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/library'
+    | '/multimedia'
+    | '/progress'
+    | '/quiz'
+    | '/tutor'
+    | '/library/$bookId'
+    | '/api/public/chat'
+    | '/api/public/quiz'
+  id:
+    | '__root__'
+    | '/'
+    | '/library'
+    | '/multimedia'
+    | '/progress'
+    | '/quiz'
+    | '/tutor'
+    | '/library/$bookId'
+    | '/api/public/chat'
+    | '/api/public/quiz'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LibraryRoute: typeof LibraryRouteWithChildren
+  MultimediaRoute: typeof MultimediaRoute
+  ProgressRoute: typeof ProgressRoute
+  QuizRoute: typeof QuizRoute
+  TutorRoute: typeof TutorRoute
+  ApiPublicChatRoute: typeof ApiPublicChatRoute
+  ApiPublicQuizRoute: typeof ApiPublicQuizRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tutor': {
+      id: '/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof TutorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/multimedia': {
+      id: '/multimedia'
+      path: '/multimedia'
+      fullPath: '/multimedia'
+      preLoaderRoute: typeof MultimediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +190,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/library/$bookId': {
+      id: '/library/$bookId'
+      path: '/$bookId'
+      fullPath: '/library/$bookId'
+      preLoaderRoute: typeof LibraryBookIdRouteImport
+      parentRoute: typeof LibraryRoute
+    }
+    '/api/public/quiz': {
+      id: '/api/public/quiz'
+      path: '/api/public/quiz'
+      fullPath: '/api/public/quiz'
+      preLoaderRoute: typeof ApiPublicQuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/chat': {
+      id: '/api/public/chat'
+      path: '/api/public/chat'
+      fullPath: '/api/public/chat'
+      preLoaderRoute: typeof ApiPublicChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface LibraryRouteChildren {
+  LibraryBookIdRoute: typeof LibraryBookIdRoute
+}
+
+const LibraryRouteChildren: LibraryRouteChildren = {
+  LibraryBookIdRoute: LibraryBookIdRoute,
+}
+
+const LibraryRouteWithChildren =
+  LibraryRoute._addFileChildren(LibraryRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LibraryRoute: LibraryRouteWithChildren,
+  MultimediaRoute: MultimediaRoute,
+  ProgressRoute: ProgressRoute,
+  QuizRoute: QuizRoute,
+  TutorRoute: TutorRoute,
+  ApiPublicChatRoute: ApiPublicChatRoute,
+  ApiPublicQuizRoute: ApiPublicQuizRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
