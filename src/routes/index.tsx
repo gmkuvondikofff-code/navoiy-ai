@@ -74,22 +74,27 @@ function Index() {
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -inset-6 gradient-gold opacity-30 blur-3xl rounded-full" aria-hidden />
-            <div className="relative rounded-2xl overflow-hidden shadow-elegant border-4 border-gold/30">
-              <img
-                src={portrait}
-                alt="Alisher Navoiy portreti"
-                width={1024}
-                height={1024}
-                className="w-full h-auto"
-              />
-              <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-primary/90 to-transparent">
-                <p className="text-primary-foreground font-display text-lg">
-                  Alisher Navoiy
-                </p>
-                <p className="text-primary-foreground/80 text-xs">1441 — 1501 • Hirot</p>
+          <div className="relative flex items-center justify-center">
+            <div className="blob bg-pink-400 size-72 -top-6 -left-6" aria-hidden />
+            <div className="blob bg-amber-300 size-64 bottom-0 right-0" style={{ animationDelay: "2s" }} aria-hidden />
+            <div className="blob bg-indigo-400 size-56 top-1/3 right-1/4" style={{ animationDelay: "4s" }} aria-hidden />
+
+            <div className="relative story-ring">
+              <div className="rounded-full overflow-hidden bg-background size-[280px] sm:size-[360px] lg:size-[440px] grid place-items-center">
+                <img
+                  src={portrait}
+                  alt="Alisher Navoiy portreti"
+                  width={1024}
+                  height={1024}
+                  className="w-full h-full object-cover scale-105"
+                />
               </div>
+            </div>
+
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 glass-card px-5 py-2.5 rounded-full shadow-elegant flex items-center gap-3 whitespace-nowrap">
+              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-display text-sm font-semibold text-primary">Alisher Navoiy</span>
+              <span className="text-[11px] text-muted-foreground">1441 — 1501</span>
             </div>
           </div>
         </div>

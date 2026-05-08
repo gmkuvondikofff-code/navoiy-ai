@@ -50,9 +50,9 @@ const LibraryIndexRoute = LibraryIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const LibraryBookIdRoute = LibraryBookIdRouteImport.update({
-  id: '/$bookId',
-  path: '/$bookId',
-  getParentRoute: () => LibraryRoute,
+  id: '/library/$bookId',
+  path: '/library/$bookId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicQuizRoute = ApiPublicQuizRouteImport.update({
   id: '/api/public/quiz',
@@ -141,6 +141,7 @@ export interface RootRouteChildren {
   ProgressRoute: typeof ProgressRoute
   QuizRoute: typeof QuizRoute
   TutorRoute: typeof TutorRoute
+  LibraryBookIdRoute: typeof LibraryBookIdRoute
   LibraryIndexRoute: typeof LibraryIndexRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicQuizRoute: typeof ApiPublicQuizRoute
@@ -192,10 +193,10 @@ declare module '@tanstack/react-router' {
     }
     '/library/$bookId': {
       id: '/library/$bookId'
-      path: '/$bookId'
+      path: '/library/$bookId'
       fullPath: '/library/$bookId'
       preLoaderRoute: typeof LibraryBookIdRouteImport
-      parentRoute: typeof LibraryRoute
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/quiz': {
       id: '/api/public/quiz'
@@ -220,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProgressRoute: ProgressRoute,
   QuizRoute: QuizRoute,
   TutorRoute: TutorRoute,
+  LibraryBookIdRoute: LibraryBookIdRoute,
   LibraryIndexRoute: LibraryIndexRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicQuizRoute: ApiPublicQuizRoute,
@@ -227,13 +229,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

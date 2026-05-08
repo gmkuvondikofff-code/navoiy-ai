@@ -188,3 +188,46 @@
   50% { opacity: 1; }
 }
 .animate-shimmer { animation: shimmer 2s ease-in-out infinite; }
+
+/* Instagram/Telegram-style story ring */
+.story-ring {
+  background: conic-gradient(from 0deg,
+    #f9ce34, #ee2a7b, #6228d7, #1d9bf0, #00d4aa, #f9ce34);
+  padding: 4px;
+  border-radius: 9999px;
+  animation: ring-spin 14s linear infinite;
+}
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+.story-ring > * { animation: ring-spin 14s linear infinite reverse; }
+
+/* Glass card — Telegram-like */
+.glass-card {
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--gold) 18%, transparent);
+}
+
+/* Floating blob background */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: float 12s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(20px,-30px) scale(1.08); }
+}
+
+/* Instagram-like gradient text */
+.text-gradient-ig {
+  background: linear-gradient(90deg, #f9ce34, #ee2a7b, #6228d7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
