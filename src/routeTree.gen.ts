@@ -9,12 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TutorRouteImport } from './routes/tutor'
+import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as MultimediaRouteImport } from './routes/multimedia'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LibraryBookIdRouteImport } from './routes/library.$bookId'
 import { Route as ApiPublicQuizRouteImport } from './routes/api/public/quiz'
 import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 
+const TutorRoute = TutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MultimediaRoute = MultimediaRouteImport.update({
+  id: '/multimedia',
+  path: '/multimedia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LibraryRoute = LibraryRouteImport.update({
   id: '/library',
   path: '/library',
@@ -44,6 +68,10 @@ const ApiPublicChatRoute = ApiPublicChatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/library': typeof LibraryRouteWithChildren
+  '/multimedia': typeof MultimediaRoute
+  '/progress': typeof ProgressRoute
+  '/quiz': typeof QuizRoute
+  '/tutor': typeof TutorRoute
   '/library/$bookId': typeof LibraryBookIdRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/quiz': typeof ApiPublicQuizRoute
@@ -51,6 +79,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/library': typeof LibraryRouteWithChildren
+  '/multimedia': typeof MultimediaRoute
+  '/progress': typeof ProgressRoute
+  '/quiz': typeof QuizRoute
+  '/tutor': typeof TutorRoute
   '/library/$bookId': typeof LibraryBookIdRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/quiz': typeof ApiPublicQuizRoute
@@ -59,6 +91,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/library': typeof LibraryRouteWithChildren
+  '/multimedia': typeof MultimediaRoute
+  '/progress': typeof ProgressRoute
+  '/quiz': typeof QuizRoute
+  '/tutor': typeof TutorRoute
   '/library/$bookId': typeof LibraryBookIdRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/quiz': typeof ApiPublicQuizRoute
@@ -68,6 +104,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/library'
+    | '/multimedia'
+    | '/progress'
+    | '/quiz'
+    | '/tutor'
     | '/library/$bookId'
     | '/api/public/chat'
     | '/api/public/quiz'
@@ -75,6 +115,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/library'
+    | '/multimedia'
+    | '/progress'
+    | '/quiz'
+    | '/tutor'
     | '/library/$bookId'
     | '/api/public/chat'
     | '/api/public/quiz'
@@ -82,6 +126,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/library'
+    | '/multimedia'
+    | '/progress'
+    | '/quiz'
+    | '/tutor'
     | '/library/$bookId'
     | '/api/public/chat'
     | '/api/public/quiz'
@@ -90,12 +138,44 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LibraryRoute: typeof LibraryRouteWithChildren
+  MultimediaRoute: typeof MultimediaRoute
+  ProgressRoute: typeof ProgressRoute
+  QuizRoute: typeof QuizRoute
+  TutorRoute: typeof TutorRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicQuizRoute: typeof ApiPublicQuizRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tutor': {
+      id: '/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof TutorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/multimedia': {
+      id: '/multimedia'
+      path: '/multimedia'
+      fullPath: '/multimedia'
+      preLoaderRoute: typeof MultimediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/library': {
       id: '/library'
       path: '/library'
@@ -148,6 +228,10 @@ const LibraryRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LibraryRoute: LibraryRouteWithChildren,
+  MultimediaRoute: MultimediaRoute,
+  ProgressRoute: ProgressRoute,
+  QuizRoute: QuizRoute,
+  TutorRoute: TutorRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicQuizRoute: ApiPublicQuizRoute,
 }
