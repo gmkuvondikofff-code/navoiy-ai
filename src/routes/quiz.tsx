@@ -150,6 +150,23 @@ function QuizPage() {
             ))}
           </div>
 
+          <h2 className="font-display text-lg text-primary mt-6 mb-3">
+            {lang === "uz" ? "Savollar soni" : "Количество вопросов"}
+          </h2>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            {COUNT_OPTIONS.map((c) => (
+              <button
+                key={c}
+                onClick={() => setQuestionCount(c)}
+                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all border ${
+                  questionCount === c ? "gradient-gold text-primary border-gold shadow-gold" : "bg-card text-foreground/70 border-border hover:border-gold/60"
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={begin}
             disabled={!bookId}
