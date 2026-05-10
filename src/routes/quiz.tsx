@@ -48,7 +48,7 @@ function QuizPage() {
       const res = await fetch("/api/public/quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookId: bId, difficulty: diff, lang, count: QUESTIONS_PER_ROUND }),
+        body: JSON.stringify({ bookId: bId, difficulty: diff, lang, count: questionCount }),
       });
       if (res.status === 429) return toast.error(lang === "uz" ? "Limit, biroz kuting" : "Лимит, подождите");
       if (res.status === 402) return toast.error(lang === "uz" ? "AI kreditlari tugadi" : "AI кредиты исчерпаны");
