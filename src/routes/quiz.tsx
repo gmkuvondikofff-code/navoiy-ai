@@ -22,7 +22,7 @@ export const Route = createFileRoute("/quiz")({
 type Difficulty = "easy" | "medium" | "hard";
 type Question = { question: string; options: string[]; correctIndex: number; explanation: string };
 
-const QUESTIONS_PER_ROUND = 5;
+const COUNT_OPTIONS = [5, 10, 15, 20, 30, 50] as const;
 
 function QuizPage() {
   const { lang } = useLang();
