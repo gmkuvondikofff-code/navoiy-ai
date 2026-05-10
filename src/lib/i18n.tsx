@@ -49,12 +49,16 @@ export const t: Dict = {
   comingSoon: { uz: "Tez orada", ru: "Скоро" },
   heroBadge: { uz: "1441 — 1501", ru: "1441 — 1501" },
   heroTitle: {
-    uz: "Mir Alisher Navoiy",
-    ru: "Мир Алишер Навои",
+    uz: "Alisher Navoiy",
+    ru: "Алишер Навои",
+  },
+  heroTagline: {
+    uz: "Ma'rifat va tafakkur timsoli.",
+    ru: "Символ просвещения и мысли.",
   },
   heroSubtitle: {
-    uz: "Turkiy adabiyotning quyoshi. 12 asar, AI murabbiy va aqlli testlar bilan kashf eting.",
-    ru: "Солнце тюркской литературы. Откройте 12 произведений с AI наставником и адаптивными тестами.",
+    uz: "Asrlardan oshib kelayotgan hikmat va ma'naviyat manbai. Asarlar, AI yordamchi va interaktiv testlar bilan bilim oling.",
+    ru: "Источник мудрости и духовности, передаваемый через века. Получайте знания через произведения, AI-помощника и интерактивные тесты.",
   },
   worksCount: { uz: "12 asar", ru: "12 произведений" },
   aiTutorTitle: { uz: "AI Murabbiy bilan suhbat", ru: "Беседа с AI Наставником" },

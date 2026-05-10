@@ -40,7 +40,7 @@ function Index() {
               {t("heroTitle")}
             </h1>
             <p className="mt-3 font-display text-xl sm:text-2xl text-gold italic">
-              {lang === "uz" ? "Turkiy so'zning sultoni" : "Султан тюркского слова"}
+              {t("heroTagline")}
             </p>
             <p className="mt-6 text-base sm:text-lg text-foreground/80 leading-relaxed max-w-xl">
               {t("heroSubtitle")}

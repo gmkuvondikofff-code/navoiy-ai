@@ -22,7 +22,7 @@ export const Route = createFileRoute("/quiz")({
 type Difficulty = "easy" | "medium" | "hard";
 type Question = { question: string; options: string[]; correctIndex: number; explanation: string };
 
-const QUESTIONS_PER_ROUND = 5;
+const COUNT_OPTIONS = [5, 10, 15, 20, 30, 50] as const;
 
 function QuizPage() {
   const { lang } = useLang();
@@ -30,6 +30,7 @@ function QuizPage() {
   const search = Route.useSearch();
   const [bookId, setBookId] = useState<string | null>(search.bookId || null);
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [questionCount, setQuestionCount] = useState<number>(10);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -47,7 +48,7 @@ function QuizPage() {
       const res = await fetch("/api/public/quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookId: bId, difficulty: diff, lang, count: QUESTIONS_PER_ROUND }),
+        body: JSON.stringify({ bookId: bId, difficulty: diff, lang, count: questionCount }),
       });
       if (res.status === 429) return toast.error(lang === "uz" ? "Limit, biroz kuting" : "Лимит, подождите");
       if (res.status === 402) return toast.error(lang === "uz" ? "AI kreditlari tugadi" : "AI кредиты исчерпаны");
@@ -145,6 +146,23 @@ function QuizPage() {
                 }`}
               >
                 {t(d)}
+              </button>
+            ))}
+          </div>
+
+          <h2 className="font-display text-lg text-primary mt-6 mb-3">
+            {lang === "uz" ? "Savollar soni" : "Количество вопросов"}
+          </h2>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            {COUNT_OPTIONS.map((c) => (
+              <button
+                key={c}
+                onClick={() => setQuestionCount(c)}
+                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all border ${
+                  questionCount === c ? "gradient-gold text-primary border-gold shadow-gold" : "bg-card text-foreground/70 border-border hover:border-gold/60"
+                }`}
+              >
+                {c}
               </button>
             ))}
           </div>
