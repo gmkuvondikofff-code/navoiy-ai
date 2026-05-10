@@ -30,6 +30,7 @@ function QuizPage() {
   const search = Route.useSearch();
   const [bookId, setBookId] = useState<string | null>(search.bookId || null);
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [questionCount, setQuestionCount] = useState<number>(10);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
