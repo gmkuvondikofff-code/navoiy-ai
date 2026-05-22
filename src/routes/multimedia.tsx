@@ -1,85 +1,122 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useLang, useT } from "@/lib/i18n";
-import { PlayCircle, Music, Headphones, Youtube } from "lucide-react";
+import { useState } from "react";
+import { PlayCircle, Youtube, X } from "lucide-react";
 
 export const Route = createFileRoute("/multimedia")({
   component: MultimediaPage,
   head: () => ({
     meta: [
-      { title: "Multimedia — Video va audiokitoblar" },
-      { name: "description", content: "Alisher Navoiy haqida video va audio kontent." },
+      { title: "Multimedia — Video galereya" },
+      { name: "description", content: "Alisher Navoiy haqida video kontent." },
     ],
   }),
 });
 
 const videos = [
-  { id: "1", title_uz: "Alisher Navoiy hayoti", title_ru: "Жизнь Алишера Навои", placeholder: "https://www.youtube.com/embed/?listType=search&list=Alisher+Navoiy" },
-  { id: "2", title_uz: "Xamsa dostonlari", title_ru: "Поэмы Хамса", placeholder: "" },
-  { id: "3", title_uz: "Farhod va Shirin", title_ru: "Фархад и Ширин", placeholder: "" },
-  { id: "4", title_uz: "Tasavvuf falsafasi", title_ru: "Философия суфизма", placeholder: "" },
-];
-
-const audios = [
-  { id: "a1", title_uz: "Hayrat ul-abror — kirish", title_ru: "Хайрат ул-аброр — введение" },
-  { id: "a2", title_uz: "Farhod va Shirin — 1-bob", title_ru: "Фархад и Ширин — глава 1" },
-  { id: "a3", title_uz: "Layli va Majnun — sevgi", title_ru: "Лейли и Меджнун — любовь" },
+  {
+    id: "IZ9Ia11TZSQ",
+    title_uz: "Alisher Navoiy — hayoti va ijodi",
+    title_ru: "Алишер Навои — жизнь и творчество",
+  },
+  {
+    id: "-Fx7XI1KUdY",
+    title_uz: "Navoiy merosi",
+    title_ru: "Наследие Навои",
+  },
+  {
+    id: "kTq0x9oGB5U",
+    title_uz: "Xamsa dostonlari tahlili",
+    title_ru: "Анализ поэм Хамса",
+  },
+  {
+    id: "PhOlo6TDc64",
+    title_uz: "Farhod va Shirin hikoyasi",
+    title_ru: "История Фархада и Ширин",
+  },
+  {
+    id: "neZa2TLuh8w",
+    title_uz: "Layli va Majnun — muhabbat dostoni",
+    title_ru: "Лейли и Меджнун — поэма о любви",
+  },
+  {
+    id: "d6_V_fEqtLQ",
+    title_uz: "Navoiy falsafasi",
+    title_ru: "Философия Навои",
+  },
+  {
+    id: "4R1SywCk-Tg",
+    title_uz: "Tasavvuf va ijod",
+    title_ru: "Суфизм и творчество",
+  },
 ];
 
 function MultimediaPage() {
   const { lang } = useLang();
   const t = useT();
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div className="container mx-auto px-4 py-10">
       <div className="text-center mb-10">
         <div className="ornament-divider mb-4 max-w-[120px] mx-auto" />
         <h1 className="font-display text-4xl font-bold text-primary">{t("multimedia")}</h1>
-        <p className="text-muted-foreground mt-2">{lang === "uz" ? "Video va audio kontent" : "Видео и аудио контент"}</p>
+        <p className="text-muted-foreground mt-2">
+          {lang === "uz" ? "Navoiy haqida video lavhalar" : "Видеоматериалы о Навои"}
+        </p>
       </div>
 
-      <section className="mb-12">
+      <section>
         <h2 className="font-display text-2xl text-primary flex items-center gap-2 mb-4">
           <Youtube className="text-gold" /> {t("videos")}
         </h2>
         <div className="grid sm:grid-cols-2 gap-4">
-          {videos.map((v) => (
-            <div key={v.id} className="rounded-2xl bg-card border border-border overflow-hidden shadow-page">
-              <div className="aspect-video bg-gradient-to-br from-primary to-primary/70 grid place-items-center relative">
-                <PlayCircle className="size-20 text-gold opacity-90" />
-                <span className="absolute bottom-3 right-3 text-xs px-2 py-0.5 rounded-full bg-background/80 text-muted-foreground">
-                  {t("comingSoon")}
-                </span>
-              </div>
-              <div className="p-4">
-                <h3 className="font-display text-lg font-semibold text-primary">
-                  {lang === "uz" ? v.title_uz : v.title_ru}
-                </h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="font-display text-2xl text-primary flex items-center gap-2 mb-4">
-          <Headphones className="text-gold" /> {t("audios")}
-        </h2>
-        <p className="text-sm text-muted-foreground mb-4 max-w-2xl">{t("audioComing")}</p>
-        <div className="space-y-3">
-          {audios.map((a) => (
-            <div key={a.id} className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-gold/50 transition-colors">
-              <button className="size-12 rounded-full gradient-gold grid place-items-center shadow-gold shrink-0">
-                <PlayCircle className="size-6 text-primary" />
-              </button>
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-primary truncate">{lang === "uz" ? a.title_uz : a.title_ru}</div>
-                <div className="mt-1.5 h-1 bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full w-0 gradient-gold" />
+          {videos.map((v) => {
+            const thumb = `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`;
+            const isActive = activeVideo === v.id;
+            return (
+              <div key={v.id} className="rounded-2xl bg-card border border-border overflow-hidden shadow-page">
+                {isActive ? (
+                  <div className="relative aspect-video bg-black">
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0`}
+                      title={lang === "uz" ? v.title_uz : v.title_ru}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                    <button
+                      onClick={() => setActiveVideo(null)}
+                      className="absolute top-2 right-2 size-8 rounded-full bg-black/60 text-white grid place-items-center hover:bg-black/80 transition-colors"
+                      aria-label="Close"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setActiveVideo(v.id)}
+                    className="w-full aspect-video relative group overflow-hidden"
+                  >
+                    <img
+                      src={thumb}
+                      alt={lang === "uz" ? v.title_uz : v.title_ru}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors grid place-items-center">
+                      <PlayCircle className="size-16 text-white opacity-90 group-hover:scale-110 transition-transform" />
+                    </div>
+                  </button>
+                )}
+                <div className="p-4">
+                  <h3 className="font-display text-lg font-semibold text-primary">
+                    {lang === "uz" ? v.title_uz : v.title_ru}
+                  </h3>
                 </div>
               </div>
-              <Music className="size-5 text-muted-foreground shrink-0" />
-              <span className="text-xs text-muted-foreground hidden sm:inline">{t("comingSoon")}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </div>
